@@ -23,7 +23,7 @@ class Form {
     this.reset.position(displayWidth-100,20);
 
     this.button.mousePressed(()=>{
-      this.input.hide();
+      this.input.hide();    
       this.button.hide();
       player.name = this.input.value();
       playerCount+=1;

@@ -44,6 +44,7 @@ class Game {
     form.hide();
     
     Player.getPlayerInfo();
+    player.getCarsAtEnd();
     
     if(allPlayers !== undefined){
       background(rgb(198,135,103));
@@ -58,30 +59,30 @@ class Game {
       var x = 175 ;
       var y;
 
-      for(var plr in allPlayers){
+      for(var i in allPlayers){
         //add 1 to the index for every loop
         index = index + 1 ;
 
         //position the cars a little away from each other in x direction
         x = x + 200;
-        //use data form the database to display the cars in y direction
-        y = displayHeight - allPlayers[plr].distance;
+        //use data from the database to display the cars in y direction
+        y = displayHeight - allPlayers[i].distance;
         cars[index-1].x = x;
         cars[index-1].y = y;
-       // console.log(index, player.index)
-
        
+
+       //identifying the currently active car
         if (index === player.index){
           stroke(10);
           fill("red");
           ellipse(x,y,60,60);
-          cars[index - 1].shapeColor = "red";
+          //cars[index - 1].shapeColor = "red";
           camera.position.x = displayWidth/2;
           camera.position.y = cars[index-1].y;
         }
        
         //textSize(15);
-        //text(allPlayers[plr].name + ": " + allPlayers[plr].distance, 120,display_position)
+        //text(allPlayers[i].name + ": " + allPlayers[i].distance, 120,display_position)
       }
 
     }
@@ -91,8 +92,10 @@ class Game {
       player.update();
     }
 
-    if(player.distance > 3860){
+    if(player.distance > 5860){
       gameState = 2;
+      player.rank =player.rank + 1;
+      Player.updateCarsAtEnd(player.rank);      
     }
    
     drawSprites();
@@ -100,5 +103,16 @@ class Game {
 
   end(){
     console.log("Game Ended");
+    console.log(player.rank);
   }
 }
+
+
+/*
+for/in statement loop
+
+(var i = 0; i < length; i++)
+
+Syntax:
+for (variable in object){}
+*/
